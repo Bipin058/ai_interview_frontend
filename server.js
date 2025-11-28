@@ -20,6 +20,8 @@ app.prepare().then(() => {
   }).listen(3000, '0.0.0.0', (err) => {
     if (err) throw err;
     console.log('> Ready on https://localhost:3000 and https://0.0.0.0:3000');
-    console.log('> Access from other devices using your local IP (e.g., https://192.168.1.196:3000)');
+    console.log(
+      '> Access from other devices using your local IP (e.g., https://192.168.1.196:3000)'
+    );
   });
 });

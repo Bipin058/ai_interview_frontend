@@ -34,7 +34,12 @@ interface ConnectionProviderProps {
   onSessionEnd?: () => void;
 }
 
-export function ConnectionProvider({ appConfig, children, metadata, onSessionEnd }: ConnectionProviderProps) {
+export function ConnectionProvider({
+  appConfig,
+  children,
+  metadata,
+  onSessionEnd,
+}: ConnectionProviderProps) {
   const [isConnectionActive, setIsConnectionActive] = useState(false);
 
   const tokenSource = useMemo(() => {

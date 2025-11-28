@@ -1,13 +1,7 @@
 import { Button } from '@/components/livekit/button';
 
 function WelcomeImage() {
-  return (
-    <img
-      src="/logo.png"
-      alt="Logo"
-      className="text-fg0 mb-4 size-16"
-    />
-  );
+  return <img src="/logo.png" alt="Logo" className="text-fg0 mb-4 size-16" />;
 }
 
 interface WelcomeViewProps {

@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-
 import { RoomAudioRenderer, StartAudio } from '@livekit/components-react';
 import type { AppConfig } from '@/app-config';
 import { ViewController } from '@/components/app/view-controller';
@@ -48,8 +47,12 @@ export function App({ appConfig }: AppProps) {
       const data = await res.json();
       setResumeData(data.resume_extracted);
       setIsLoggedIn(true);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   };
 
@@ -86,7 +89,7 @@ export function App({ appConfig }: AppProps) {
             </div>
             <button
               type="submit"
-              className="w-full rounded bg-blue-600 py-2 font-bold text-white hover:bg-blue-700 transition-colors"
+              className="w-full rounded bg-blue-600 py-2 font-bold text-white transition-colors hover:bg-blue-700"
             >
               Join Call
             </button>
@@ -97,8 +100,8 @@ export function App({ appConfig }: AppProps) {
   }
 
   return (
-    <ConnectionProvider 
-      appConfig={appConfig} 
+    <ConnectionProvider
+      appConfig={appConfig}
       metadata={JSON.stringify({ resume: resumeData, email: email })}
       onSessionEnd={() => setIsLoggedIn(false)}
     >
