@@ -121,7 +121,7 @@ export function AgentControlBar({
 
 
           {/* Toggle Screen Share */}
-          {visibleControls.screenShare && (
+          {/* {visibleControls.screenShare && (
             <TrackToggle
               size="icon"
               variant="secondary"
