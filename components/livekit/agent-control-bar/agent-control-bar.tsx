@@ -1,6 +1,6 @@
 'use client';
 
-import { type HTMLAttributes, useCallback, useState } from 'react';
+import { type HTMLAttributes, useCallback, useState, useEffect } from 'react';
 import { Track } from 'livekit-client';
 import { useChat, useRemoteParticipants } from '@livekit/components-react';
 import { ChatTextIcon, PhoneDisconnectIcon } from '@phosphor-icons/react/dist/ssr';
@@ -43,7 +43,7 @@ export function AgentControlBar({
 }: AgentControlBarProps & HTMLAttributes<HTMLDivElement>) {
   const { send } = useChat();
   const participants = useRemoteParticipants();
-  const [chatOpen, setChatOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(true);
   const publishPermissions = usePublishPermissions();
   const {
     micTrackRef,
@@ -55,7 +55,12 @@ export function AgentControlBar({
     handleMicrophoneDeviceSelectError,
     handleCameraDeviceSelectError,
   } = useInputControls({ onDeviceError, saveUserChoices });
-
+  useEffect(() => {
+    // Force camera on if it's not enabled and not pending
+    if (!cameraToggle.enabled && !cameraToggle.pending) {
+      cameraToggle.toggle(true);
+    }
+}, [cameraToggle.enabled, cameraToggle.pending, cameraToggle.toggle]);
   const handleSendMessage = async (message: string) => {
     await send(message);
   };
@@ -113,20 +118,7 @@ export function AgentControlBar({
             />
           )}
 
-          {/* Toggle Camera */}
-          {visibleControls.camera && (
-            <TrackSelector
-              kind="videoinput"
-              aria-label="Toggle camera"
-              source={Track.Source.Camera}
-              pressed={cameraToggle.enabled}
-              pending={cameraToggle.pending}
-              disabled={cameraToggle.pending}
-              onPressedChange={cameraToggle.toggle}
-              onMediaDeviceError={handleCameraDeviceSelectError}
-              onActiveDeviceChange={handleVideoDeviceChange}
-            />
-          )}
+
 
           {/* Toggle Screen Share */}
           {visibleControls.screenShare && (
@@ -142,15 +134,7 @@ export function AgentControlBar({
           )}
 
           {/* Toggle Transcript */}
-          <Toggle
-            size="icon"
-            variant="secondary"
-            aria-label="Toggle transcript"
-            pressed={chatOpen}
-            onPressedChange={handleToggleTranscript}
-          >
-            <ChatTextIcon weight="bold" />
-          </Toggle>
+
         </div>
 
         {/* Disconnect */}

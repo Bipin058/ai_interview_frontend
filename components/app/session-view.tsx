@@ -67,7 +67,7 @@ export const SessionView = ({
 }: React.ComponentProps<'section'> & SessionViewProps) => {
   const session = useSessionContext();
   const { messages } = useSessionMessages(session);
-  const [chatOpen, setChatOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(true);
   const { isConnectionActive, startDisconnectTransition } = useConnection();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
@@ -98,7 +98,7 @@ export const SessionView = ({
         )}
       >
         <Fade top className="absolute inset-x-4 top-0 h-40" />
-        <ScrollArea ref={scrollAreaRef} className="px-4 pt-40 pb-[150px] md:px-6 md:pb-[200px]">
+        <ScrollArea ref={scrollAreaRef} className="px-4 pt-[320px] pb-[150px] md:px-6 md:pb-[200px]">
           <ChatTranscript
             hidden={!chatOpen}
             messages={messages}
