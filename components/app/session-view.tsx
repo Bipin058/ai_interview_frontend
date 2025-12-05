@@ -98,7 +98,10 @@ export const SessionView = ({
         )}
       >
         <Fade top className="absolute inset-x-4 top-0 h-40" />
-        <ScrollArea ref={scrollAreaRef} className="px-4 pt-[320px] pb-[150px] md:px-6 md:pb-[200px]">
+        <ScrollArea
+          ref={scrollAreaRef}
+          className="px-4 pt-[320px] pb-[150px] md:px-6 md:pb-[200px]"
+        >
           <ChatTranscript
             hidden={!chatOpen}
             messages={messages}

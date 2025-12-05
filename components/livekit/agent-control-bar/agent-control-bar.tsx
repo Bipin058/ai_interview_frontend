@@ -1,6 +1,6 @@
 'use client';
 
-import { type HTMLAttributes, useCallback, useState, useEffect } from 'react';
+import { type HTMLAttributes, useCallback, useEffect, useState } from 'react';
 import { Track } from 'livekit-client';
 import { useChat, useRemoteParticipants } from '@livekit/components-react';
 import { ChatTextIcon, PhoneDisconnectIcon } from '@phosphor-icons/react/dist/ssr';
@@ -60,7 +60,7 @@ export function AgentControlBar({
     if (!cameraToggle.enabled && !cameraToggle.pending) {
       cameraToggle.toggle(true);
     }
-}, [cameraToggle.enabled, cameraToggle.pending, cameraToggle.toggle]);
+  }, [cameraToggle.enabled, cameraToggle.pending, cameraToggle.toggle]);
   const handleSendMessage = async (message: string) => {
     await send(message);
   };
@@ -118,8 +118,6 @@ export function AgentControlBar({
             />
           )}
 
-
-
           {/* Toggle Screen Share */}
           {/* {visibleControls.screenShare && (
             <TrackToggle
@@ -134,7 +132,6 @@ export function AgentControlBar({
           )}
 
           {/* Toggle Transcript */}
-
         </div>
 
         {/* Disconnect */}
